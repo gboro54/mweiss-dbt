@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: raw
+    schema: jaffle_shop
+    tables:
+      - name: orders
+        loaded_at_field: _etl_loaded_at
+        freshness: 
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+      - name: customers
+
+  - name: stripe
+    description: Some tool we dont know or own loads this table every 11th minute of the hour
+    loader: Some Tool
+    database: raw
+    schema: stripe
+    tables:
+      - name: payments
+        description: Table description just because we can
+        identifier: payment
